@@ -11,35 +11,80 @@
 <body>
     <div class="container">
 
-        <h1 class="mt-5">INMUEBLES SAS</h1>
-        <form id="formulario">
-            <label for="idmueble">ID</label>
-            <input type="number" id="idmueble" name="idmueble">
-            <span id="mensid" style="color: #ab0000;"></span>
-            <br>
-            <label for="direccion">Dirección</label>
-            <input type="text" id="direccion" name="direccion">
-            <span id="mensdireccion" style="color: #ab0000;"></span> <br>
-            <label for="telefono">telefono</label>
-            <input type="number" id="telefono" name="telefono">
-            <br>
-            <label for="precio">Precio</label>
-            <input type="number" id="precio" name="precio">
-            <span id="mensprecio" style="color: #ab0000;"></span> <br>
-            <label for="estado">estado</label>
-            <input type="text" id="estado" name="estado">
-            <br>
-            <button class="btn btn-secondary" id="btnenviar" type="button">Enviar</button>
-            <button class="btn btn-secondary" id="btnbuscar" type="button">Buscar Inmueble</button>
-            <button class="btn btn-secondary" id="btnlistar" type="button">Listar Inmuebles</button>
-        </form>
+    <h1 class="mt-5 text-center">INMUEBLES SAS</h1>
+    <form id="formulario">
+
+                <div class="row g-3 align-items-center mt-4">
+                    <div class="col-auto">
+                        <label for="idmueble" class="col-form-label">ID</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="number" id="idmueble" name="idmueble" class="form-control">
+                    </div>
+                    <div class="col-auto">
+                        <span id="mensid" class="form-text">
+                        </span>
+                    </div>
+                </div>
+
+                <div class="row g-3 align-items-center mt-1">
+                    <div class="col-auto">
+                        <label for="direccion" class="col-form-label">DIRECCIÓN</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="text" id="direccion" name="direccion" class="form-control">
+                    </div>
+                    <div class="col-auto">
+                        <span id="mensdireccion" class="form-text">
+                        </span>
+                    </div>
+                </div>
+
+                <div class="row g-3 align-items-center mt-1">
+                    <div class="col-auto">
+                        <label for="telefono" class="col-form-label">TELEFONO</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="text" id="telefono" name="telefono" class="form-control">
+                    </div>
+                </div>
+
+                <div class="row g-3 align-items-center mt-1">
+                    <div class="col-auto">
+                        <label for="precio" class="col-form-label">PRECIO</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="number" id="precio" name="precio" class="form-control">
+                    </div>
+                    <div class="col-auto">
+                        <span id="mensprecio" class="form-text">
+                        </span>
+                    </div>
+                </div>
+
+                <div class="row g-3 align-items-center mt-1">
+                    <div class="col-auto">
+                        <label for="estado" class="col-form-label">ESTADO</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="text" id="estado" name="estado" class="form-control">
+                    </div>
+                </div>
+                
+    </form>
+
+    <div class="mt-4">
+        <button class="btn btn-secondary" id="btnenviar" type="button">Enviar</button>
+        <button class="btn btn-secondary" id="btnbuscar" type="button">Buscar Inmueble</button>
+        <button class="btn btn-secondary" id="btnlistar" type="button">Listar Inmuebles</button>
     </div>
+
     <div class="container mt-4">
-        <span id="mensidfind" style="color: #000;"></span><br>
-        <span id="mensdireccionfind" style="color: #000;"></span><br>
-        <span id="menstelefonofind" style="color: #000;"></span><br>
-        <span id="menspreciofind" style="color: #000;"></span><br>
-        <span id="mensestadofind" style="color: #000;"></span>
+        <span id="idfind" style="color: #000;"></span><br>
+        <span id="direccionfind" style="color: #000;"></span><br>
+        <span id="telefonofind" style="color: #000;"></span><br>
+        <span id="preciofind" style="color: #000;"></span><br>
+        <span id="estadofind" style="color: #000;"></span>
     </div>
     
     <script>
@@ -58,8 +103,6 @@
 
 
         ]
-
-        console.log(inmuebles)
 
         let idmueble = document.getElementById("idmueble")
         let direccion = document.getElementById("direccion")
@@ -104,7 +147,7 @@
         function validarFormulario() {
 
             let promesa = new Promise((resolve, reject) => {
-                if ((idmueble.value == "") || direccion.value == 0 || telefono.value == 0 || estado.value == 0){
+                if ((idmueble.value == "") || direccion.value == 0 || precio.value == 0 || telefono.value == 0 || estado.value == 0){
                     resolve("Todos los datos deben ser ingresados correctamente");
                 }
                 else {
@@ -115,7 +158,32 @@
             return promesa;
             }
 
-            btnenviar.onclick = function () {
+        // ---------------------------------   BUSCAR POR ID UN INMUEBLE   -------------------------------------------
+
+        function buscar(){
+
+            const o = inmuebles.find(elemento => {
+                return elemento.idmueble === 1
+            })
+
+            idmueble.value = o.idmueble
+            direccion.value = o.direccion
+            telefono.value = o.telefono
+            precio.value = o.precio
+            estado.value = o.estado
+
+        } 
+
+
+        // --------------------------------- LISTAR (si está disponible y el precio  -------------------------------------------
+        //--------------------------    entre 200 millones  y 300 millones ) UN INMUEBLE    -----------------------------------
+      
+
+
+        // ----------------------------------------------   BOTONES   -----------------------------------------------------
+
+        //ENVIAR
+        btnenviar.onclick = function () {
             validarFormulario()
             .then(function (respuesta) {
                 alert(respuesta)
@@ -123,50 +191,14 @@
             .catch(function (respuesta2) {
                 alert(respuesta2)
             })
-
-            /* validarprecio()
-            .then(function(respuesta3){
-                mensprecio.innerHTML = ""+ respuesta3
-            })
-            .catch(function(respuesta2){
-                alert(respuesta2)
-            })*/
         }
 
-        /* function validarprecio() {
-
-            let promprecio = new Promise((resolve, reject) => {
-            if((precio.value > 100000000 || precio.value < 500000000) )
-                resolve("El precio deber ser menor a 100.000.000 o mayor a 500.000.000");
-            else{
-                reject("");
-            }
-
-            });
-            return promprecio
-
-        } */
-
-
-        // ---------------------------------   BUSCAR POR ID UN INMUEBLE   -------------------------------------------
-        function buscar(){
-
-            const o = inmuebles.find(elemento => {
-                return elemento.idmueble === 2
-            })
-
-            console.log(o)
-            mensidfind.innerHTML = "ID: " +o.idmueble
-            mensdireccionfind.innerHTML = "DIRECCIÓN: " + o.direccion
-            menstelefonofind.innerHTML = "TELEFONO: " + o.telefono
-            menspreciofind.innerHTML = "PRECIO: " + o.precio
-            mensestadofind.innerHTML = "ESTADO: " + o.estado
-
-        }
-
+        //BUSCAR
         btnbuscar.onclick = function () {
             buscar()
         }
+
+        //LISTAR
 
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
