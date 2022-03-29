@@ -78,14 +78,6 @@
         <button class="btn btn-secondary" id="btnbuscar" type="button">Buscar Inmueble</button>
         <button class="btn btn-secondary" id="btnlistar" type="button">Listar Inmuebles</button>
     </div>
-
-    <div class="container mt-4">
-        <span id="idfind" style="color: #000;"></span><br>
-        <span id="direccionfind" style="color: #000;"></span><br>
-        <span id="telefonofind" style="color: #000;"></span><br>
-        <span id="preciofind" style="color: #000;"></span><br>
-        <span id="estadofind" style="color: #000;"></span>
-    </div>
     
     <script>
 
@@ -118,7 +110,8 @@
         let btnbuscar = document.getElementById("btnbuscar")
         let btnlistar = document.getElementById("btnlistar")
 
-        //  -------------------------------------  EVENTOS PARA MENSAJES  -----------------------------------------------
+
+        //  -------------------------------------  EVENTOS PARA MENSAJES  -------------------------------
 
         //ID
         idmueble.addEventListener("focus",function(){
@@ -142,23 +135,28 @@
             mensprecio.innerHTML = ""
         }
 
-        // ---------------------------------   VALIDACION DEL FORMULARIO   -------------------------------------------
+
+        // ---------------------------------   VALIDACION DEL FORMULARIO   ----------------------------
 
         function validarFormulario() {
 
             let promesa = new Promise((resolve, reject) => {
-                if ((idmueble.value == "") || direccion.value == 0 || precio.value == 0 || telefono.value == 0 || estado.value == 0){
+                if ((idmueble.value == "") || direccion.value == 0 || telefono.value == 0 || estado.value == 0){
                     resolve("Todos los datos deben ser ingresados correctamente");
                 }
+                    if (precio.value < 100000000 || precio.value > 500000000) {
+                        alert("¡El precio debe de estár entre 100 millones y 500 millones!")
+                    }
                 else {
                     reject("Datos enviados correctamente")
                 }
             });
 
-            return promesa;
-            }
+            return promesa; 
+        }
 
-        // ---------------------------------   BUSCAR POR ID UN INMUEBLE   -------------------------------------------
+        
+        // ---------------------------------   BUSCAR POR ID UN INMUEBLE   ----------------------------------
 
         function buscar(){
 
@@ -175,12 +173,15 @@
         } 
 
 
-        // --------------------------------- LISTAR (si está disponible y el precio  -------------------------------------------
-        //--------------------------    entre 200 millones  y 300 millones ) UN INMUEBLE    -----------------------------------
-      
-        
+        // --------------------------------- LISTAR (si está disponible y el precio  -------------------------
+        //--------------------------    entre 200 millones  y 300 millones ) UN INMUEBLE    -----------------
 
-        // ----------------------------------------------   BOTONES   -----------------------------------------------------
+        function listar(){
+            
+        }
+
+
+        // ----------------------------------------------   BOTONES   ----------------------------------
 
         //ENVIAR
         btnenviar.onclick = function () {
