@@ -70,7 +70,7 @@
                         <input type="text" id="estado" name="estado" class="form-control">
                     </div>
                 </div>
-                
+          
     </form>
 
     <div class="mt-4">
@@ -78,20 +78,24 @@
         <button class="btn btn-secondary" id="btnbuscar" type="button">Buscar Inmueble</button>
         <button class="btn btn-secondary" id="btnlistar" type="button">Listar Inmuebles</button>
     </div>
+
+    <div class="mt-4">
+        <span class="row g-3 align-items-center mt-1" id="resultado" style="color: #000; font-size: 20px "> </span>
+    </div>
     
     <script>
 
         inmuebles = [
-            {idmueble: 1, direccion: "calle 1", telefono: 1, precio: 1111, estado: "Disponible"},
-            {idmueble: 2, direccion: "calle 2", telefono: 2, precio: 2222, estado: "Disponible"},
-            {idmueble: 3, direccion: "calle 3", telefono: 3, precio: 3333, estado: "No Disponible"},
-            {idmueble: 4, direccion: "calle 4", telefono: 4, precio: 4444, estado: "No Disponible"},
-            {idmueble: 5, direccion: "calle 5", telefono: 5, precio: 5555, estado: "No Disponible"},
-            {idmueble: 6, direccion: "calle 6", telefono: 6, precio: 6666, estado: "Disponible"},
-            {idmueble: 7, direccion: "calle 7", telefono: 7, precio: 7777, estado: "No Disponible"},
-            {idmueble: 8, direccion: "calle 8", telefono: 8, precio: 8888, estado: "Disponible"},
-            {idmueble: 9, direccion: "calle 9", telefono: 9, precio: 9999, estado: "Disponible"},
-            {idmueble: 10, direccion: "calle 10", telefono: 10, precio: 1000, estado: "Disponible"},
+            {idmueble: 1, direccion: "calle 1", telefono: 1234567, precio: 290000000, estado: "Disponible"},
+            {idmueble: 2, direccion: "calle 2", telefono: 9234723, precio: 250000000, estado: "Disponible"},
+            {idmueble: 3, direccion: "calle 3", telefono: 6546546, precio: 345700000, estado: "No Disponible"},
+            {idmueble: 4, direccion: "calle 4", telefono: 7897897, precio: 769000000, estado: "No Disponible"},
+            {idmueble: 5, direccion: "calle 5", telefono: 1123423, precio: 500000000, estado: "No Disponible"},
+            {idmueble: 6, direccion: "calle 6", telefono: 5345654, precio: 210000000, estado: "Disponible"},
+            {idmueble: 7, direccion: "calle 7", telefono: 6565463, precio: 900100000, estado: "No Disponible"},
+            {idmueble: 8, direccion: "calle 8", telefono: 5465467, precio: 467000000, estado: "Disponible"},
+            {idmueble: 9, direccion: "calle 9", telefono: 0907683, precio: 623000000, estado: "Disponible"},
+            {idmueble: 10, direccion: "calle 10", telefono: 12321, precio: 100000000, estado: "Disponible"},
 
 
         ]
@@ -176,9 +180,36 @@
         // --------------------------------- LISTAR (si está disponible y el precio  -------------------------
         //--------------------------    entre 200 millones  y 300 millones ) UN INMUEBLE    -----------------
 
-        function listar(){
-            
+        function filtrar(inmueble) {
+        setTimeout(function () {
+          let resultado = inmuebles.filter(function (inmueble) {
+            if (inmueble.estado == "Disponible") {
+              return inmueble.precio > 200000000 && inmueble.precio < 300000000;
+            }
+          });
+
+          if (resultado) console.log(resultado);
+          let html =
+            "<table border = '2'><th>Identificación</th><th>Dirección</th><th>Precio</th><th>Estado</th>";
+          for (let i = 0; i < resultado.length; i++) {
+            html += `<tr><td>${resultado[i].idmueble}</td>
+                            <td>${resultado[i].direccion}</td>
+                            <td>${resultado[i].precio}</td>
+                            <td>${resultado[i].estado}</td>
+                            </tr>`;
+          }
+
+          html += `</table>`;
+
+          document.getElementById("resultado").innerHTML = html;
+        }, 1000);
         }
+
+        function llamarFuncion(callback) {
+            console.log("Buscando el producto, espere por favor");
+            callback();
+        }
+
 
 
         // ----------------------------------------------   BOTONES   ----------------------------------
@@ -200,6 +231,9 @@
         }
 
         //LISTAR
+        btnlistar.onclick = function () {
+        llamarFuncion(filtrar)
+        }
 
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
